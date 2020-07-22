@@ -252,7 +252,8 @@ class SimCLR:
 
         results = {"acc": 0}
         for i in range(5):
-            print(f"Learning attempt {i+1}")
+            if verbose_cycle:
+                print(f"Learning attempt {i+1}")
 
             classifier = Classifier(
                 base_model=self.base_model,
