@@ -246,7 +246,8 @@ class SimCLR:
         nums_of_unfrozen_layers=[5, 5, 6, 7],
         lrs=[1e-3, 1e-4, 5e-5, 1e-5],
         epochs=[5, 5, 20, 25],
-        verbose=0,
+        verbose_epoch=0,
+        verbose_cycle=1,
     ):
 
         results = {"acc": 0}
@@ -271,7 +272,8 @@ class SimCLR:
                 nums_of_unfrozen_layers,
                 lrs,
                 epochs,
-                verbose,
+                verbose_epoch,
+                verbose_cycle,
             )
             acc, report = classifier.evaluate_on_test(
                 dfs["test"], data_test, class_labels

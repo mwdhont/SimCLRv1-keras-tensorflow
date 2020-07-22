@@ -64,12 +64,10 @@ class Classifier:
 
         # Combine VGG and extra layers
         classifier_model = Model(base_model.input, classifier_model)
-        tf.autograph.experimental.do_not_convert(
-            classifier_model.compile(
-                optimizer=opt,
-                loss="categorical_crossentropy",
-                metrics=["categorical_accuracy"],
-            )
+        classifier_model.compile(
+            optimizer=opt,
+            loss="categorical_crossentropy",
+            metrics=["categorical_accuracy"],
         )
 
         return classifier_model
@@ -149,7 +147,8 @@ class Classifier:
         nums_of_unfrozen_layers,
         lrs,
         epochs,
-        verbose=0,
+        verbose_epoch=0,
+        verbose_cycle=1,
     ):
 
         classifier = self.classifier_model
@@ -176,16 +175,17 @@ class Classifier:
                 callbacks=[earlyStopping, reduce_lr]
                 # callbacks = [checkpoint, earlyStopping, reduce_lr]
             )
-            print(
-                f"CYCLE {i}: num_of_unfrozen_layers: {num_of_unfrozen_layers}"
-                + f" - epochs: {epoch} - lr: {lr:.1e}",
-                end=" | ",
-            )
-            print(
-                f"Training Loss at end of cycle: {history.history['loss'][-1]:.2f}"
-                + f"- Training Acc: {np.max(history.history['categorical_accuracy']):.2f}"
-                + f"- Validation Acc: {np.max(history.history['val_categorical_accuracy']):.2f}"
-            )
+            if verbose_cycle:
+                print(
+                    f"CYCLE {i}: num_of_unfrozen_layers: {num_of_unfrozen_layers}"
+                    + f" - epochs: {epoch} - lr: {lr:.1e}",
+                    end=" | ",
+                )
+                print(
+                    f"Training Loss at end of cycle: {history.history['loss'][-1]:.2f}"
+                    + f"- Training Acc: {np.max(history.history['categorical_accuracy']):.2f}"
+                    + f"- Validation Acc: {np.max(history.history['val_categorical_accuracy']):.2f}"
+                )
             if np.isnan(history.history["val_loss"]).any():
                 print("Learning diverged, stopped.")
                 break

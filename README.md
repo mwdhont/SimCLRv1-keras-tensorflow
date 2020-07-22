@@ -10,7 +10,7 @@ An intuitive explanation can be found [here](https://amitness.com/2020/03/illust
 </p>
 
 
-## Implementation
+# Implementation
 
 It has been chosen to define a SimCLR class which builds a Keras SimCLR_model around the base_model of which the feature encoding wants to be improved. The SimCLR_model has (2.batch_size) Inputs and 1 matrix-output with shape (batch_size x 4.batch_size). The output is computed with the help of a custom Keras-layer: SoftmaxCosineSim, in line with the NT-Xent-loss. The SimCLR-output should match to [I|O|I|O], so that a simple Keras cross_entropy-loss can be used to train the SimCLRmodel and consequently improve the feature encoding.
 
@@ -23,7 +23,7 @@ Difference from official implementation:
   * As only 1 device is used, no global batch normalization
   * swish activation instead of relu in projection head
 
-## Experiment Data
+# Experiment Data
 
 The public available trashnet-dataset has been used: [GitHub repository](https://github.com/garythung/trashnet)
 The original dataset has been reduced to 5 classes with the following number of instances:
@@ -37,7 +37,7 @@ The original images of (512x384) have been center-cropped and reduced to a size 
 Data has been split in train/val/test - 70/15/15
 Validation set is used for early stopping.
 
-## Evaluation
+# Evaluation
 
 The feature quality is evaluated by the means of
   * A linear classifier (logistic regression) trained on the extracted features of the encoder
@@ -48,7 +48,7 @@ This for 3 fractions of the whole training data: 100%, 20%, 5%
 
 
 
-## Results
+# Results
 
 
 
@@ -64,9 +64,13 @@ This for 3 fractions of the whole training data: 100%, 20%, 5%
 
 
 
-## Project Context
+# Project Context
 
-This repo is made in the context of a joined research project of [KU Leuven](https://www.kuleuven.be/kuleuven/), [Sagacify](https://sagacify.com/) and [BESIX](https://www.besix.com/en) on the topic of automatic monitoring of waste containers on construction site. For this purpose, data has been collected for the period of 5 months on site. If you would be interested in this research, please feel free to open an issue.
+This repository is made in the context of a joined research project of [KU Leuven](https://www.kuleuven.be/kuleuven/), [Sagacify](https://sagacify.com/) and [BESIX](https://www.besix.com/en) on the topic of automatic monitoring of waste containers on construction site. For this purpose, data has been collected for the period of 5 months on a construction site. If you would be interested in the details of this research, please feel free to reach out.
 
+<p align="center">
 
-![alt text](/img/container1.png) ![alt text](/img/container2.png)
+  <img src=/img/container1.png alt="alt text" width="300"/>  
+  <img src=/img/container2.png alt="alt text" width="300"/>
+
+</p>
