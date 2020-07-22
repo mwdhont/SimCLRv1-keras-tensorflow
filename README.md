@@ -1,11 +1,29 @@
 # SimCLR
-Tensorflow-Keras Implementation of [SimCLRv1](https://arxiv.org/abs/2002.05709). [GitHub](https://github.com/google-research/simclr)
+Tensorflow-Keras Implementation of SimCLRv1:
+  * [Paper](https://arxiv.org/abs/2002.05709)
+  * [GitHub](https://github.com/google-research/simclr)
 
 An intuitive explanation can be found [here](https://amitness.com/2020/03/illustrated-simclr/).
 
-![alt text](https://camo.githubusercontent.com/d92c0e914af70fe618cf3ea555e2da1737d84bc4/68747470733a2f2f312e62702e626c6f6773706f742e636f6d2f2d2d764834504b704539596f2f586f3461324259657276492f414141414141414146704d2f766146447750584f79416f6b4143385868383532447a4f67457332324e68625877434c63424741735948512f73313630302f696d616765342e676966 | width=100)
+<div style="text-align:center">
+  <img src="https://camo.githubusercontent.com/d92c0e914af70fe618cf3ea555e2da1737d84bc4/68747470733a2f2f312e62702e626c6f6773706f742e636f6d2f2d2d764834504b704539596f2f586f3461324259657276492f414141414141414146704d2f766146447750584f79416f6b4143385868383532447a4f67457332324e68625877434c63424741735948512f73313630302f696d616765342e676966" alt="alt text" width="300"/>
+</div>
 
-## Data
+
+## Implementation
+
+It has been chosen to define a SimCLR class which builds a Keras SimCLR_model around the base_model of which the feature encoding wants to be improved. The SimCLR_model has (2.batch_size) Inputs and 1 matrix-output with shape (batch_size x 4.batch_size). The output is computed with the help of a custom Keras-layer: SoftmaxCosineSim, in line with the NT-Xent-loss. The SimCLR-output should match to [I|O|I|O], so that a simple Keras cross_entropy-loss can be used to train the SimCLRmodel and consequently improve the feature encoding.
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://github.com/mwdhont/SimCLRv1-keras-tensorflow/blob/master/2_model_SimCLR.ipynb)
+
+
+Difference from official implementation:
+  * Adam optimizer instead of Lars, no warmup and cosine decay on the learning rate, learning is reduced on plateau though.
+  * Reduced color_jitter strength to 0.5 instead of 1.0
+  * As only 1 device is used, no global batch normalization
+  * swish activation instead of relu in projection head
+
+## Experiment Data
 
 The public available trashnet-dataset has been used: [GitHub repository](https://github.com/garythung/trashnet)
 The original dataset has been reduced to 5 classes with the following number of instances:
@@ -16,19 +34,8 @@ The original dataset has been reduced to 5 classes with the following number of 
   * Metal: 410
 
 The original images of (512x384) have been center-cropped and reduced to a size (80x80)
-Data has been split in train/val/test - 80/10/10
+Data has been split in train/val/test - 70/15/15
 Validation set is used for early stopping.
-
-
-## Implementation
-
-It has been chosen to define a SimCLR class which builds a Keras SimCLR_model around the base_model of which the feature encoding wants to be improved. The SimCLR_model has (2.batch_size) Inputs and 1 matrix-output with shape (batch_size x 4.batch_size). The output is computed with the help of a custom Keras-layer: SoftmaxCosineSim, in line with the NT-Xent-loss. The SimCLR-output should match to [I|O|I|O], so that a simple Keras cross_entropy-loss can be used to train the SimCLRmodel and consequently improve the feature encoding.
-
-Difference from official implementation:
-  * Adam optimizer instead of Lars, no warmup and cosine decay on the learning rate, learning is reduced on plateau though.
-  * Reduced color_jitter strength to 0.5 instead of 1.0
-  * As only 1 device is used, no global batch normalization
-  * swish activation instead of relu in projection head
 
 ## Evaluation
 
