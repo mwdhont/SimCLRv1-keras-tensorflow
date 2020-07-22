@@ -28,7 +28,7 @@ class Classifier:
         batch_size=32,
         reg_dense=0.005,
         reg_out=0.005,
-        save_path="//mmdetection/notebooks/Trashnet/repo/models/trashnet",
+        save_path="models/trashnet",
     ):
         self.base_model = base_model
         self.num_classes = num_classes

@@ -40,7 +40,7 @@ class SimCLR:
         lr=1e-4,
         loss="categorical_crossentropy",
         metrics=["binary_accuracy"],
-        save_path="//mmdetection/notebooks/Trashnet/repo/models",
+        save_path="models/trashnet",
         r=1,
     ):
         self.base_model = base_model

@@ -178,6 +178,5 @@ def tSNE_vis(
     )
     if save_figure:
         plt.savefig(
-            "/mmdetection/notebooks/Trashnet/repo/figures/" + save_tag + ".svg",
-            bbox_inches="tight",
+            "figures/" + save_tag + ".svg", bbox_inches="tight",
         )
