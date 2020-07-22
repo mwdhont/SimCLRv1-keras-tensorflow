@@ -170,7 +170,7 @@ class Classifier:
             history = classifier_model.fit(
                 data_train,
                 epochs=epoch,
-                verbose=verbose,
+                verbose=verbose_epoch,
                 validation_data=data_val,
                 callbacks=[earlyStopping, reduce_lr]
                 # callbacks = [checkpoint, earlyStopping, reduce_lr]
