@@ -7,6 +7,4 @@ opencv-python==4.2.0.32
 scikit-learn==0.23.1
 scipy==1.4.1
 numpy==1.18.1
-cmake==3.17.3
-MulticoreTSNE==0.1
 DateTime==4.3
