@@ -6,7 +6,7 @@ import random
 from sklearn.metrics import classification_report
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegressionCV
-from MulticoreTSNE import MulticoreTSNE as TSNE_M
+from sklearn.manifold import TSNE
 
 from tensorflow.keras.applications.vgg16 import preprocess_input
 
@@ -153,7 +153,7 @@ def tSNE_vis(
     for i, label in enumerate(class_labels):
         class_instances[label] = (df.class_label == label).sum()
 
-    tsne_m = TSNE_M(n_jobs=8, random_state=42)
+    tsne_m = TSNE(n_jobs=8, random_state=42)
     X_embedded = tsne_m.fit_transform(features)
 
     fig = plt.figure(figsize=(6, 6))

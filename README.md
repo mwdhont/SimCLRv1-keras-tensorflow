@@ -5,9 +5,9 @@ Tensorflow-Keras Implementation of SimCLRv1:
 
 An intuitive explanation can be found [here](https://amitness.com/2020/03/illustrated-simclr/).
 
-<div style="text-align:center">
+<p align="center">
   <img src="https://camo.githubusercontent.com/d92c0e914af70fe618cf3ea555e2da1737d84bc4/68747470733a2f2f312e62702e626c6f6773706f742e636f6d2f2d2d764834504b704539596f2f586f3461324259657276492f414141414141414146704d2f766146447750584f79416f6b4143385868383532447a4f67457332324e68625877434c63424741735948512f73313630302f696d616765342e676966" alt="alt text" width="300"/>
-</div>
+</p>
 
 
 ## Implementation
