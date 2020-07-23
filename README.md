@@ -94,6 +94,13 @@ This is done for 3 fractions of the whole training data: 100%, 20%, 5%. It can b
 | 5% | Linear | 0.63 | 0.7
 |      | Fine-tuned | 0.75 | 0.81
 
+![](/img/t-SNE_VGG16.png)  |  ![](/img/t-SNE_VGG16.png)
+:-------------------------:|:-------------------------:
+Fig.2.1 - t-SNE of VGG16-features           | Fig.2.2 - t-SNE of VGG16-features after SimCLR
+
+
+
+
 ### ContAIner
 
 |   Fraction of training data   |  Classifier   | VGG16      |  SimCLR |
@@ -113,5 +120,5 @@ This repository is made in the context of a joined research project of [KU Leuve
 
   <img src=/img/container1.png alt="alt text" width="300"/>
   <img src=/img/container2.png alt="alt text" width="300"/>
-
+  <figcaption align="center">Fig.3 - Illustration of ContAIner output </figcaption>
 </p>
