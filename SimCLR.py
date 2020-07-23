@@ -39,7 +39,6 @@ class SimCLR:
         ph_regul=0.005,
         lr=1e-4,
         loss="categorical_crossentropy",
-        metrics=["binary_accuracy"],
         save_path="models/trashnet",
         r=1,
     ):
@@ -54,7 +53,6 @@ class SimCLR:
         self.lr = lr
         self.optimizer = Adam(lr, amsgrad=True)
         self.loss = loss
-        self.metrics = metrics
         self.save_path = save_path
         self.r = r
 
@@ -117,9 +115,7 @@ class SimCLR:
 
         # Combine model and compile
         SimCLR_model = Model(inputs=i, outputs=o)
-        SimCLR_model.compile(
-            optimizer=self.optimizer, loss=self.loss, metrics=self.metrics
-        )
+        SimCLR_model.compile(optimizer=self.optimizer, loss=self.loss)
         return SimCLR_model
 
     def train(self, data_train, data_val, epochs=10, pr=True):
