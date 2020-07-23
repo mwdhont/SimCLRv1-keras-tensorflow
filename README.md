@@ -1,13 +1,14 @@
 # SimCLR
 
-A Tensorflow-Keras Implementation of SimCLRv1 which allows to improve the feature representation quality of your base_model by the means of the Simple Framework for Contrastive Learning of Visual Representations. The provided code should require only minor changes in order to apply the framework to any Keras-model.
+A Tensorflow-Keras Implementation of SimCLRv1 which allows to improve the feature representation quality of your base_model by the means of the Simple Framework for Contrastive Learning of Visual Representations. The provided code should require only minor changes in order to apply it to any Keras-model.
 
 References: [Paper](https://arxiv.org/abs/2002.05709), [GitHub](https://github.com/google-research/simclr), [Blog](https://amitness.com/2020/03/illustrated-simclr/)
 
 
 <p align="center">
   <img src="https://camo.githubusercontent.com/d92c0e914af70fe618cf3ea555e2da1737d84bc4/68747470733a2f2f312e62702e626c6f6773706f742e636f6d2f2d2d764834504b704539596f2f586f3461324259657276492f414141414141414146704d2f766146447750584f79416f6b4143385868383532447a4f67457332324e68625877434c63424741735948512f73313630302f696d616765342e676966" alt="alt text" width="300"/>
-  <figcaption align="center">Fig.1 - SimCLR Illustration <a href="https://ai.googleblog.com/2020/04/advancing-self-supervised-and-semi.html"> [1] </a> </figcaption>
+  <br>
+  <m>Fig.1 - SimCLR Illustration <a href="https://ai.googleblog.com/2020/04/advancing-self-supervised-and-semi.html"> [1] </a> </m>
 </p>
 
 
@@ -30,10 +31,10 @@ A [SimCLR-class](SimCLR.py) has been defined which builds a Keras SimCLR_model a
 
 Difference with official [implementation](https://github.com/google-research/simclr):
 
-  * Adam optimizer instead of Lars, no warmup nor cosine decay on learning rate, learning is reduced on plateau.
-  * Reduced color_jitter strength to 0.5 instead of 1.0
+  * Reduced color_jitter strength from 1.0 to 0.5
+  * Swish activation instead of relu in projection head
   * As only 1 device is used, no global batch normalization
-  * swish activation instead of relu in projection head
+  * Adam optimizer instead of Lars, no warmup nor cosine decay on learning rate
 
 # Experiments
 
@@ -52,6 +53,8 @@ The original dataset has been reduced to 5 classes with the following number of 
 The original images of (512x384) have been center-cropped and reduced to a size (80x80)
 Data has been split in train/val/test - 70/15/15.
 
+Note that the similar results have been observed on a private dataset, see project context below.
+
 ### Evaluation
 
 The feature quality is evaluated by the means of
@@ -59,7 +62,7 @@ The feature quality is evaluated by the means of
   * A fine-tuned classifier. 5 attempts are performed, the best classifier is kept.
   * A t-SNE visualization is made.
 
-This is done for 3 fractions of the whole training data: 100%, 20%, 5%. It can be seen that the SimCLR improves the classification performance for all fractions of the training set.
+This is done for 3 fractions of the training data: 100%, 20%, 5%. It can be seen that the SimCLR improves the classification performance for all fractions of the training set.
 
 
 ### Results
@@ -72,11 +75,11 @@ Since the results change slightly due to the stochastic nature of the optimizati
 |   Fraction of training set   |  Classifier   | VGG16      |  SimCLR |
 |:----------:|:-------------:|:-------------:|:------:|
 | 100% | Linear | 0.79 ± 0.00 | 0.82 ± 0.01
-|      | Fine-tuned | 0.84 ± 0.02| 0.87 ± 0.0
-| 20% | Linear | 0.70 ± 0.0.| 0.81 ±0.02
+|      | Fine-tuned | 0.85 ± 0.02| 0.87 ± 0.00
+| 20% | Linear | 0.70 ± 0.00| 0.81 ±0.02
 |      | Fine-tuned | 0.84 ± 0.01| 0.86 ± 0.00
-| 5% | Linear | 0.63 ± 0.00| 0.78 ± 0.05
-|      | Fine-tuned | 0.79 ± 0.03| 0.82 ± 0.02
+| 5% | Linear | 0.63 ± 0.00| 0.79 ± 0.02
+|      | Fine-tuned | 0.80 ± 0.03| 0.84 ± 0.03
 
 
 <img src=/img/t-SNE_VGG16.png alt="alt text" width="250"/>  |  <img src=/img/t-SNE_SimCLR.png alt="alt text" width="250"/>
