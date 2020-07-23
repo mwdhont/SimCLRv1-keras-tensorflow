@@ -64,7 +64,10 @@ This is done for 3 fractions of the whole training data: 100%, 20%, 5%. It can b
 
 ### Results
 
-Since the results change slightly due to the stochastic nature of the optimization procedure of both the SimCLR_model and the fine-tuned classifier, the average and standard deviation over 10 runs is presented below.
+Since the results change slightly due to the stochastic nature of the optimization procedure of both the SimCLR_model and the fine-tuned classifier, the average and standard deviation over 10 runs are presented below.
+
+
+<p align="center">
 
 |   Fraction of training set   |  Classifier   | VGG16      |  SimCLR |
 |:----------:|:-------------:|:-------------:|:------:|
@@ -80,15 +83,17 @@ Since the results change slightly due to the stochastic nature of the optimizati
 :-------------------------:|:-------------------------:
 Fig.2.1 - t-SNE of VGG16-features before SimCLR          | Fig.2.2 - t-SNE of VGG16-features after SimCLR
 
-
+</p>
 
 # Project Context
 
-This repository is made in the context of a joined research project of [KU Leuven](https://www.kuleuven.be/kuleuven/), [Sagacify](https://sagacify.com/) and [BESIX](https://www.besix.com/en) on the topic of automatic monitoring of waste containers on construction site. For this purpose, data has been collected for the period of 5 months on a construction site. If you would be interested in the details of this research, please feel free to reach out.
+This repository is part of a joined research project of [KU Leuven](https://www.kuleuven.be/kuleuven/), [Sagacify](https://sagacify.com/) and [BESIX](https://www.besix.com/en) on the topic of automatic monitoring of waste containers on construction sites. For this purpose, data has been collected for the period of 5 months on a construction site. Similar results where achieved on this dataset. See below for an illustration of the type of data.
+If you would be interested in the details of this research, please feel free to reach out.
 
 <p align="center">
 
   <img src=/img/container1.png alt="alt text" width="300"/>
   <img src=/img/container2.png alt="alt text" width="300"/>
-  <figcaption align="center">Fig.3 - Illustration of ContAIner output </figcaption>
+  <br>
+  <e> Fig.3 - Illustration of ContAIner output </e>
 </p>
