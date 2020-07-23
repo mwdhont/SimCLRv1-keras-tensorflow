@@ -28,7 +28,7 @@ SimCLR = SimCLR(base_model, input_shape, batch_size, feat_dim, feat_dims_ph, num
 The method SimCLR.train can be used to train the SimCLR_model by passing the training and validation data of the type [DataGeneratorSimCLR](DataGeneratorSimCLR.py). The attribute base_model keeps track of the changing base_model. The feature representation quality can be evaluated in a number of ways, see below.
 
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1Npf8sE0dlyV0-SAISnsrGsJBjRDZM-EQ)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://drive.google.com/file/d/1Npf8sE0dlyV0-SAISnsrGsJBjRDZM-EQ/view?usp=sharing)
 
 
 
