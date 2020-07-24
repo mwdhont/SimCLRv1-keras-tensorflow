@@ -3,10 +3,6 @@ from tensorflow.keras.layers import Activation
 
 from tensorflow.keras.utils import get_custom_objects
 
-# ------------------------------------------------------------
-# needs to be defined as activation class otherwise error
-# AttributeError: 'Activation' object has no attribute '__name__'
-
 
 class Swish(Activation):
     def __init__(self, activation, **kwargs):
@@ -19,4 +15,3 @@ def swish(x):
 
 
 get_custom_objects().update({"swish": Swish(swish)})
-# ------------------------------------------------------------

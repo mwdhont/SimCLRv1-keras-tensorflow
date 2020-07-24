@@ -17,8 +17,9 @@ from swish import swish
 
 
 class Classifier:
-    """
-
+    """ Class to standardize the learning of a fine-tuned classifier.
+        Allows for gradual defreeze while training and evaluation on
+        test set wit sklearn-report.
     """
 
     def __init__(
@@ -40,15 +41,15 @@ class Classifier:
         self.classifier_model = self.build_classifier()
 
     def build_classifier(self):
+        """ Build classifier
+        """
         # Design model
         base_model = self.base_model
 
         # Adding dense layer
         x = base_model.output
         x = Flatten()(x)
-        x = BatchNormalization()(
-            x
-        )  # This layer helped training procedure to stabilize
+        x = BatchNormalization()(x)
         x = Dense(
             32, activation="swish", kernel_regularizer=l1(self.reg_dense)
         )(x)
@@ -73,6 +74,8 @@ class Classifier:
         return classifier_model
 
     def get_generators(self, dfs, fraction, batch_size, params_generator):
+        """ Returns generators used while training the classifier
+        """
         # Generators
         data_train = DataGenerator(
             dfs["train"].sample(frac=fraction).reset_index(drop=True),
@@ -96,6 +99,8 @@ class Classifier:
         return data_train, data_val, data_test
 
     def get_callbacks(self, fraction):
+        """ Returns callbacks used while training the classifier
+        """
         checkpoint = ModelCheckpoint(
             self.save_path
             + "/NL_classifier/classifier_pr_"
@@ -120,7 +125,8 @@ class Classifier:
         return checkpoint, earlyStopping, reduce_lr
 
     def unfreeze(self, num_of_unfrozen_layers, pr=False):
-        # (Un)Freeze all layers
+        """ Unfreeze layers of base_model
+        """
         for layer in self.classifier_model.layers[:-num_of_unfrozen_layers]:
             layer.trainable = False
         for layer in self.classifier_model.layers[-num_of_unfrozen_layers:]:
@@ -150,7 +156,11 @@ class Classifier:
         verbose_epoch=0,
         verbose_cycle=1,
     ):
-
+        """ Training of classifier.
+            Two levels of verbosity:
+                1. verbose_epoch: metrics every epoch
+                2. verbose_cycle: metrics after every unfreezing cycle
+        """
         classifier = self.classifier_model
         # Callbacks
         checkpoint, earlyStopping, reduce_lr = self.get_callbacks(fraction)
@@ -191,6 +201,9 @@ class Classifier:
                 break
 
     def evaluate_on_test(self, df_test, data_test, class_labels):
+        """ Evaluation of the trained fine-tuned classifier.
+            Minimum accuracy of 0.3 is imposed to avoid evaluation on diverged model.
+        """
         class_test = self.classifier_model.predict(
             data_test, steps=len(df_test.index)
         )
@@ -210,7 +223,6 @@ class Classifier:
                 target_names=class_labels,
             )
         else:
-
             classification_report_test = None
 
         return acc, classification_report_test

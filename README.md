@@ -34,7 +34,7 @@ Difference with official [implementation](https://github.com/google-research/sim
   * Reduced color_jitter strength from 1.0 to 0.5
   * Swish activation instead of relu in projection head
   * As only 1 device is used, no global batch normalization
-  * Adam optimizer instead of Lars, no warmup nor cosine decay on learning rate
+  * Adam optimizer instead of Lars, no warmup nor cosine decay on learning rate, reduction on plateau instead.
 
 # Experiments
 

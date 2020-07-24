@@ -195,6 +195,8 @@ class SimCLR:
         K.set_value(self.SimCLR_model.optimizer.learning_rate, self.lr)
 
     def get_callbacks(self):
+        """ Returns callbacks used while training
+        """
         # Time stamp for checkpoint
         now = datetime.now()
         dt_string = now.strftime("_%m_%d_%Hh_%M")
@@ -220,6 +222,9 @@ class SimCLR:
         return checkpoint, earlyStopping, reduce_lr
 
     def print_weights(self):
+        """ Function to print (non)-learnable weights
+            Helps checking unfreezing process
+        """
         trainable_count = count_params(self.SimCLR_model.trainable_weights)
         non_trainable_count = count_params(
             self.SimCLR_model.non_trainable_weights
@@ -245,7 +250,8 @@ class SimCLR:
         verbose_epoch=0,
         verbose_cycle=1,
     ):
-
+        """ Trains and evaluates a nonlinear classifier on top of the base_model
+        """
         results = {"acc": 0}
         for i in range(5):
             if verbose_cycle:
