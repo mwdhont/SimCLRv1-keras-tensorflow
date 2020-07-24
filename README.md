@@ -25,12 +25,12 @@ See the following jupyter-notebook for an example:
 # Implementation
 
 A [SimCLR-class](SimCLR.py) has been defined which builds a Keras SimCLR_model around the base_model. It is the aim to improve the feature encoding quality of this base_model. The SimCLR_model has (*2.batch_size*) Inputs of the image size and 1 matrix-output with shape (*batch_size* x *4.batch_size*).
-  1. The *batch_size* images are each transformed twice by a random image distortion (see Fig.1), giving the 2.*batch_size* input images.
-  2. These input images are passed through the base model and a MLP projection head resulting in a feature encoding.
-  3. The SimCLR_model-output is obtained from a pairwise vector multiplication between all computed feature encodings. This vector multiplications correspond with the cosine similarity, after which the similarity is passed through a softmax. Since it is the aim to 'attract' feature representations of the same image, and 'repel' images from different images, the SimCLR-output matrix should match to [I|O|I|O], with I = identity-matrix and O = zero-matrix.
+  1. Each of the *batch_size* images are transformed twice by a random image distortion (see Fig.1), giving the 2.*batch_size* input images. See [DataGeneratorSimCLR](DataGeneratorSimCLR.py) and [SimCLR_data_util](SimCLR_data_util.py) for the details.
+  2. These input images are passed through the base model and a MLP projection head, resulting in a feature encoding.
+  3. The SimCLR_model-output is obtained from a pairwise vector multiplication between all computed feature encodings. This vector multiplications correspond with the cosine similarity, after which the similarity is passed through a softmax. Since it is the aim to 'attract' feature representations of the same image, and 'repel' representations of different images, the SimCLR-output matrix should match to [I|O|I|O], with I = identity-matrix and O = zero-matrix.
   For this purpose, a custom Keras-layer is defined: [SoftmaxCosineSim](SoftmaxCosineSim.py) (see [notebook](0_illustration_SoftmaxCosineSim.ipynb) for intuitive toy example).
   4. A simple Keras cross_entropy-loss can be used to evaluate the difference between the SimCLR-output and [I|O|I|O].
-  5. As such, the SimCLRmodel can be trained and simultaneously the feature encoding improves.
+  5. As such, the SimCLR_model can be trained and simultaneously the feature encoding improves.
 
 Difference with official [implementation](https://github.com/google-research/simclr):
 
@@ -65,12 +65,12 @@ The feature quality is evaluated by the means of
   * A fine-tuned classifier. 5 attempts are performed, the best classifier is kept.
   * A t-SNE visualization is made.
 
-This is done for 3 fractions of the training data: 100%, 20%, 5%.
+These evaluations are done for 3 fractions of the training data: 100%, 20%, 5%.
 
 
 ### Results
 
-The table below lists the top-1 accuracy for all cases. It can be seen that SimCLR improves the classification performance for all fractions of the training set on both the linear and fine-tuned classifier. For the 5%-fraction, the linear classifier accuracy improves with 13%. Furthermore, the t-SNE plot demonstrates a clear clustering of the features according to their class after training with the SimCLR framework.
+The table below lists the top-1 accuracy for all cases. It can be seen that SimCLR improves the classification performance for all fractions of the training set on both the linear and fine-tuned classifier. For the 5%-fraction, the linear classifier accuracy improves with 13%. Furthermore, the t-SNE plot demonstrates a clear clustering of the features according to their class, after training with the SimCLR framework.
 
 One can consequently conclude that the feature encoding of the base_model clearly improves thanks to the SimCLR framework.
 
