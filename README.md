@@ -1,6 +1,6 @@
 # SimCLR
 
-A Tensorflow-Keras Implementation of SimCLRv1 which allows to improve the feature representation quality of your base_model by the means of the Simple Framework for Contrastive Learning of Visual Representations. The provided code should require only minor changes in order to apply it to any Keras-model.
+A Tensorflow-Keras Implementation of SimCLRv1 which allows to improve the feature representation quality of your base_model by the means of the Simple Framework for Contrastive Learning of Visual Representations (SimCLR). The provided code should allow to apply the framework to any Keras model with only minor changes.
 
 References: [Paper](https://arxiv.org/abs/2002.05709), [GitHub](https://github.com/google-research/simclr), [Blog](https://amitness.com/2020/03/illustrated-simclr/)
 
@@ -17,28 +17,31 @@ References: [Paper](https://arxiv.org/abs/2002.05709), [GitHub](https://github.c
 SimCLR = SimCLR(base_model, input_shape, batch_size, feat_dim, feat_dims_ph, num_of_unfrozen_layers, save_path)
 
 The method SimCLR.train can be used to train the SimCLR_model by passing the training and validation data of the type [DataGeneratorSimCLR](DataGeneratorSimCLR.py). The attribute SimCLR.base_model keeps track of the changing base_model. The feature representation quality can be evaluated in a number of ways, see below.
-
+See the following jupyter-notebook for an example:
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://drive.google.com/file/d/1Npf8sE0dlyV0-SAISnsrGsJBjRDZM-EQ/view?usp=sharing)
 
 
 # Implementation
 
-A [SimCLR-class](SimCLR.py) has been defined which builds a Keras SimCLR_model around the base_model. It is the aim to improve the feature encoding quality of this base_model. The SimCLR_model has (*2.batch_size*) Inputs and 1 matrix-output with shape (*batch_size* x *4.batch_size*).
-  * The *batch_size* images are each transformed twice by a random operation (see Fig.1), giving the 2.*batch_size* input images.
-  * The output is computed with the help of a custom Keras-layer: [SoftmaxCosineSim](SoftmaxCosineSim.py) (see [notebook](0_illustration_SoftmaxCosineSim.ipynb) for intuitive toy example), in line with the NT-Xent-loss. The SimCLR-output matrix should match to [I|O|I|O], with I = identity-matrix and O = zero-matrix.
-  * Consequently, a simple Keras cross_entropy-loss can be evaluated between the SimCLR-output and [I|O|I|O]. As such, the SimCLRmodel can be trained and simultaneously the feature encoding improves.
+A [SimCLR-class](SimCLR.py) has been defined which builds a Keras SimCLR_model around the base_model. It is the aim to improve the feature encoding quality of this base_model. The SimCLR_model has (*2.batch_size*) Inputs of the image size and 1 matrix-output with shape (*batch_size* x *4.batch_size*).
+  1. The *batch_size* images are each transformed twice by a random image distortion (see Fig.1), giving the 2.*batch_size* input images.
+  2. These input images are passed through the base model and a MLP projection head resulting in a feature encoding.
+  3. The SimCLR_model-output is obtained from a pairwise vector multiplication between all computed feature encodings. This vector multiplications correspond with the cosine similarity, after which the similarity is passed through a softmax. Since it is the aim to 'attract' feature representations of the same image, and 'repel' images from different images, the SimCLR-output matrix should match to [I|O|I|O], with I = identity-matrix and O = zero-matrix.
+  For this purpose, a custom Keras-layer is defined: [SoftmaxCosineSim](SoftmaxCosineSim.py) (see [notebook](0_illustration_SoftmaxCosineSim.ipynb) for intuitive toy example).
+  4. A simple Keras cross_entropy-loss can be used to evaluate the difference between the SimCLR-output and [I|O|I|O].
+  5. As such, the SimCLRmodel can be trained and simultaneously the feature encoding improves.
 
 Difference with official [implementation](https://github.com/google-research/simclr):
 
   * Swish activation instead of relu in projection head
   * As only 1 device is used, no global batch normalization
-  * Only colour distortion used with reduced color_jitter strength of 1.0 instead of 0.5. Possible to activate other distortions in [DataGeneratorSimCLR](DataGeneratorSimCLR.py).
+  * Only colour distortion used with reduced color_jitter strength of 0.5 instead of 1.0. Possible to activate other distortions in [DataGeneratorSimCLR](DataGeneratorSimCLR.py).
   * Adam optimizer instead of Lars, no warmup nor cosine decay on learning rate, reduction on plateau instead.
 
 # Experiments
 
-SimCLR has been used as a self-supervised learning approach to improve the feature encoding quality of a pretrained VGG16-network. A SimCLR_model has been build around the base model and consequently trained on the SimCLR-task. For this, a gradual defreeze of the base model was adopted. A clear improvement of the feature representations could be observed for the downstream classification task.
+SimCLR has been used as a self-supervised learning approach to improve the feature encoding quality of a pretrained VGG16-network. A SimCLR_model has been built around the base_model and consequently trained on the SimCLR-task. For this, a gradual defreeze of the base model was adopted. A clear improvement of the feature representations could be observed for the downstream classification task.
 
 ### Data: Trashnet
 
@@ -50,7 +53,7 @@ The original dataset has been reduced to 5 classes with the following number of 
   * Plastic: 482
   * Metal: 410
 
-The original images of (512x384) have been center-cropped and reduced to a size (80x80)
+The original images of (512x384) have been center-cropped and reduced to a size (80x80).
 Data has been split in train/val/test - 70/15/15.
 
 Note that the similar results have been observed on a private dataset, see project context below.
