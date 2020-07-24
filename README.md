@@ -70,9 +70,9 @@ This is done for 3 fractions of the training data: 100%, 20%, 5%.
 
 ### Results
 
-The table below lists the top-1 accuracy for all cases. It can be seen that the SimCLR improves the classification performance for all fractions of the training set on both the linear and fine-tuned classifier. For the 5%-fraction, the linear classifier accuracy improves with 13%. Furthermore, the t-SNE plot demonstrates a clear clustering of the features according to their class after training with the SimCLR framework.
+The table below lists the top-1 accuracy for all cases. It can be seen that SimCLR improves the classification performance for all fractions of the training set on both the linear and fine-tuned classifier. For the 5%-fraction, the linear classifier accuracy improves with 13%. Furthermore, the t-SNE plot demonstrates a clear clustering of the features according to their class after training with the SimCLR framework.
 
-One can consequently conclude that the feature encoding of the base_model clearly improves thanks to the training with the SimCLR framework.
+One can consequently conclude that the feature encoding of the base_model clearly improves thanks to the SimCLR framework.
 
 <p align="center">
 
@@ -86,7 +86,7 @@ One can consequently conclude that the feature encoding of the base_model clearl
 |      | Fine-tuned | 0.80 ± 0.02| 0.84 ± 0.03
 
 
-<small>Since the results slightly change because of the stochastic nature of the optimization procedure of both the SimCLR_model and the fine-tuned classifier, the average and standard deviation over 10 runs are presented in the table above.
+<small>Since the results change slightly because of the stochastic nature of the optimization procedure of both the SimCLR_model and the fine-tuned classifier, the average and standard deviation over 10 runs are presented in the table above.
 
 
 <img src=/img/t-SNE_VGG16.png alt="alt text" width="250"/>  |  <img src=/img/t-SNE_SimCLR.png alt="alt text" width="250"/>
