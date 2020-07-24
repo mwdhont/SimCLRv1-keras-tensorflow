@@ -75,11 +75,11 @@ Since the results change slightly due to the stochastic nature of the optimizati
 |   Fraction of training set   |  Classifier   | VGG16      |  SimCLR |
 |:----------:|:-------------:|:-------------:|:------:|
 | 100% | Linear | 0.79 ± 0.00 | 0.82 ± 0.01
-|      | Fine-tuned | 0.85 ± 0.02| 0.87 ± 0.00
+|      | Fine-tuned | 0.85 ± 0.01| 0.87 ± 0.01
 | 20% | Linear | 0.70 ± 0.00| 0.81 ±0.02
-|      | Fine-tuned | 0.84 ± 0.01| 0.86 ± 0.00
-| 5% | Linear | 0.63 ± 0.00| 0.79 ± 0.02
-|      | Fine-tuned | 0.80 ± 0.03| 0.84 ± 0.03
+|      | Fine-tuned | 0.83 ± 0.01| 0.86 ± 0.01
+| 5% | Linear | 0.63 ± 0.00| 0.80 ± 0.02
+|      | Fine-tuned | 0.80 ± 0.02| 0.84 ± 0.03
 
 
 <img src=/img/t-SNE_VGG16.png alt="alt text" width="250"/>  |  <img src=/img/t-SNE_SimCLR.png alt="alt text" width="250"/>
@@ -90,7 +90,7 @@ Fig.2.1 - t-SNE of VGG16-features before SimCLR          | Fig.2.2 - t-SNE of VG
 
 # Project Context
 
-This repository is part of a joined research project of [KU Leuven](https://www.kuleuven.be/kuleuven/), [Sagacify](https://sagacify.com/) and [BESIX](https://www.besix.com/en) on the topic of automatic monitoring of waste containers on construction sites. For this purpose, data has been collected for the period of 5 months on a construction site. Similar results where achieved on this dataset. See below for an illustration of the type of data.
+This repository is part of a joined research project of [KU Leuven](https://www.kuleuven.be/kuleuven/), [Sagacify](https://sagacify.com/) and [BESIX](https://www.besix.com/en) on the topic of automatic monitoring of waste containers on construction sites. For this purpose, data has been collected during a period of 5 months. Similar results where achieved on this dataset. See below for an illustration of the type of data.
 If you would be interested in the details of this research, please feel free to reach out.
 
 <p align="center">
