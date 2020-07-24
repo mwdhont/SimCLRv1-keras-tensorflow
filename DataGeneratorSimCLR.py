@@ -81,18 +81,18 @@ class DataGeneratorSimCLR(data_utils.Sequence):
                 self.height,
                 self.width,
                 color_distort=True,
-                crop=True,
-                flip=True,
-                blur=True,
+                crop=False,
+                flip=False,
+                blur=False,
             )
             img_T2 = preprocess_for_train(
                 img,
                 self.height,
                 self.width,
                 color_distort=True,
-                crop=True,
-                flip=True,
-                blur=True,
+                crop=False,
+                flip=False,
+                blur=False,
             )
 
             if self.VGG:

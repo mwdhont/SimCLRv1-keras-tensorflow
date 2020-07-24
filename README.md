@@ -31,9 +31,9 @@ A [SimCLR-class](SimCLR.py) has been defined which builds a Keras SimCLR_model a
 
 Difference with official [implementation](https://github.com/google-research/simclr):
 
-  * Reduced color_jitter strength from 1.0 to 0.5
   * Swish activation instead of relu in projection head
   * As only 1 device is used, no global batch normalization
+  * Only colour distortion used with reduced color_jitter strength of 1.0 instead of 0.5. Possible to activate other distortions in [DataGeneratorSimCLR](DataGeneratorSimCLR.py).
   * Adam optimizer instead of Lars, no warmup nor cosine decay on learning rate, reduction on plateau instead.
 
 # Experiments
