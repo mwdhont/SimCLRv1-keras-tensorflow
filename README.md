@@ -2,14 +2,24 @@
 
 A Tensorflow-Keras Implementation of SimCLRv1 which allows to improve the feature representation quality of your base_model by the means of the Simple Framework for Contrastive Learning of Visual Representations (SimCLR). The provided code should allow to apply the framework to any Keras model with only minor changes.
 
-References: [Paper](https://arxiv.org/abs/2002.05709), [GitHub](https://github.com/google-research/simclr), [Blog](https://amitness.com/2020/03/illustrated-simclr/)
-
-
 <p align="center">
   <img src="https://camo.githubusercontent.com/d92c0e914af70fe618cf3ea555e2da1737d84bc4/68747470733a2f2f312e62702e626c6f6773706f742e636f6d2f2d2d764834504b704539596f2f586f3461324259657276492f414141414141414146704d2f766146447750584f79416f6b4143385868383532447a4f67457332324e68625877434c63424741735948512f73313630302f696d616765342e676966" alt="alt text" width="300"/>
   <br>
   <m>Fig.1 - SimCLR Illustration <a href="https://ai.googleblog.com/2020/04/advancing-self-supervised-and-semi.html"> [1] </a> </m>
 </p>
+
+The given implementation allowed for an top-1 accuracy increase of 17% on the linear classifier trained, with 5% of the data. Furthermore, the t-SNE plot demonstrates a clear clustering of the features according to their class, after training with the SimCLR framework.
+
+<img src=/img/t-SNE_VGG16.png alt="alt text" width="250"/>  |  <img src=/img/t-SNE_SimCLR.png alt="alt text" width="250"/>
+:-------------------------:|:-------------------------:
+Fig.2.1 - t-SNE of VGG16-features before SimCLR          | Fig.2.2 - t-SNE of VGG16-features after SimCLR
+
+</p>
+
+It is possible to reproduce this results via the following notebook: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://drive.google.com/file/d/1Npf8sE0dlyV0-SAISnsrGsJBjRDZM-EQ/view?usp=sharing)
+
+
+References: [Paper](https://arxiv.org/abs/2002.05709), [GitHub](https://github.com/google-research/simclr), [Blog](https://amitness.com/2020/03/illustrated-simclr/)
 
 
 # How to use?
@@ -17,10 +27,6 @@ References: [Paper](https://arxiv.org/abs/2002.05709), [GitHub](https://github.c
 SimCLR = SimCLR(base_model, input_shape, batch_size, feat_dim, feat_dims_ph, num_of_unfrozen_layers, save_path)
 
 The method SimCLR.train can be used to train the SimCLR_model by passing the training and validation data of the type [DataGeneratorSimCLR](DataGeneratorSimCLR.py). The attribute SimCLR.base_model keeps track of the changing base_model. The feature representation quality can be evaluated in a number of ways, see below.
-See the following jupyter-notebook for an example:
-
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://drive.google.com/file/d/1Npf8sE0dlyV0-SAISnsrGsJBjRDZM-EQ/view?usp=sharing)
-
 
 # Implementation
 
@@ -70,7 +76,7 @@ These evaluations are done for 3 fractions of the training data: 100%, 20%, 5%.
 
 ### Results
 
-The table below lists the top-1 accuracy for all cases. It can be seen that SimCLR improves the classification performance for all fractions of the training set on both the linear and fine-tuned classifier. For the 5%-fraction, the linear classifier accuracy improves with 13%. Furthermore, the t-SNE plot demonstrates a clear clustering of the features according to their class, after training with the SimCLR framework.
+The table below lists the top-1 accuracy for all cases. It can be seen that SimCLR improves the classification performance for all fractions of the training set on both the linear and fine-tuned classifier.
 
 One can consequently conclude that the feature encoding of the base_model clearly improves thanks to the SimCLR framework.
 
@@ -89,11 +95,6 @@ One can consequently conclude that the feature encoding of the base_model clearl
 <small>Since the results change slightly because of the stochastic nature of the optimization procedure of both the SimCLR_model and the fine-tuned classifier, the average and standard deviation over 10 runs are presented in the table above.
 
 
-<img src=/img/t-SNE_VGG16.png alt="alt text" width="250"/>  |  <img src=/img/t-SNE_SimCLR.png alt="alt text" width="250"/>
-:-------------------------:|:-------------------------:
-Fig.2.1 - t-SNE of VGG16-features before SimCLR          | Fig.2.2 - t-SNE of VGG16-features after SimCLR
-
-</p>
 
 # Project Context
 
