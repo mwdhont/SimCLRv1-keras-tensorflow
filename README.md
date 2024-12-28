@@ -3,7 +3,7 @@
 A Tensorflow-Keras Implementation of SimCLRv1 which allows to improve the feature representation quality of your base_model by the means of the Simple Framework for Contrastive Learning of Visual Representations (SimCLR). The provided code should allow to apply the framework to any Keras model with only minor changes.
 
 <p align="center">
-  <img src="https://1.bp.blogspot.com/--vH4PKpE9Yo/Xo4a2BYervI/AAAAAAAAFpM/vaFDwPXOyAokAC8Xh852DzOgEs22NhbXwCLcBGAsYHQ/s1600/image4.gif" alt="alt text" width="300"/>
+  <img src="https://1.bp.blogspot.com/--vH4PKpE9Yo/Xo4a2BYervI/AAAAAAAAFpM/vaFDwPXOyAokAC8Xh852DzOgEs22NhbXwCLcBGAsYHQ/s1600/image4.gif" alt="alt text" width="400"/>
   <br>
   <m>Fig.1 - SimCLR Illustration <a href="https://ai.googleblog.com/2020/04/advancing-self-supervised-and-semi.html"> [1] </a> </m>
 </p>
